@@ -10,12 +10,14 @@ function App() {
         <nav className="navigation">
           <div className="profile">
             <img className="profile_photo" src={profileImg} />
-            <span className="profile_info">Report for</span>
-            <h1 className="profile_name">Jeremy Robson</h1>
+            <div className="profile_info-wrapper">
+              <span className="profile_info">Report for</span>
+              <span className="profile_name">Jeremy Robson</span>
+            </div>
           </div>
           <ul className="navigation_sort-by">
             <li className="sort-by__item">Daily</li>
-            <li className="sort-by__item">Weekly</li>
+            <li className="sort-by__item sort-by__item__active">Weekly</li>
             <li className="sort-by__item">Monthly</li>
           </ul>
         </nav>
