@@ -1,10 +1,15 @@
 import React from "react";
 import threeDot from "../assets/img/combined-C.svg";
 
-const StatisticsCard: React.FC = () => {
+type StatisticsCardProps = {
+  img: string;
+  i?: number;
+};
+
+const StatisticsCard: React.FC<StatisticsCardProps> = ({ img }) => {
   return (
     <div className="statistic__card">
-      <img className="card__background-img" />
+      <img className="card__background" src={img} />
       <div className="card__content">
         <div className="content__header">
           <span className="header__title">Work</span>

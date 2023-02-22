@@ -2,8 +2,32 @@ import "./App.css";
 import profileImg from "./assets/img/image-jeremy.png";
 
 import StatisticsCard from "./components/StatisticsCard";
+import orange from "./assets/img/orange.svg";
+import blue from "./assets/img/blue.svg";
+import pink from "./assets/img/pink.svg";
+import green from "./assets/img/002-gamepad.svg";
+import purple from "./assets/img/purple.svg";
+import yellow from "./assets/img/yeallow.svg";
 
-function App() {
+type BgCollection = [
+  orange: string,
+  blue: string,
+  pink: string,
+  green: string,
+  purple: string,
+  yellow: string
+];
+
+const backgroundsCollection: BgCollection = [
+  orange,
+  blue,
+  pink,
+  green,
+  purple,
+  yellow,
+];
+
+const App: React.FC = () => {
   return (
     <div className="App">
       <div className="container">
@@ -22,16 +46,13 @@ function App() {
           </ul>
         </nav>
         <section className="statistic">
-          <StatisticsCard />
-          <StatisticsCard />
-          <StatisticsCard />
-          <StatisticsCard />
-          <StatisticsCard />
-          <StatisticsCard />
+          {backgroundsCollection.map((e, i) => (
+            <StatisticsCard img={e} key={i} />
+          ))}
         </section>
       </div>
     </div>
   );
-}
+};
 
 export default App;
