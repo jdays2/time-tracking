@@ -1,13 +1,6 @@
 import React from "react";
+import { StatisticsCardProps } from "../@types/types";
 import threeDot from "../assets/img/combined-C.svg";
-import { fetchedTimeframes } from "../redux/data/slice";
-
-type StatisticsCardProps = {
-  title: string;
-  timeframes: fetchedTimeframes;
-  background: string;
-  currentTimeFrame: number;
-};
 
 const StatisticsCard: React.FC<StatisticsCardProps> = ({
   timeframes,
@@ -35,6 +28,7 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({
         : "";
     }
   };
+
   return (
     <div className="statistic__card">
       <img className="card__background" src={background} />

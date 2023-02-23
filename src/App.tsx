@@ -8,23 +8,16 @@ import pink from "./assets/img/pink.svg";
 import green from "./assets/img/002-gamepad.svg";
 import purple from "./assets/img/purple.svg";
 import yellow from "./assets/img/yeallow.svg";
-import { useEffect, useState } from "react";
-import { getData, setCurrentTF } from "./redux/data/slice";
+import { useEffect } from "react";
+import { setCurrentTF } from "./redux/data/slice";
 import { RootState, useAppDispatch } from "./redux/store";
 import { useSelector } from "react-redux";
-
-type BgCollection = [
-  orange: string,
-  blue: string,
-  pink: string,
-  green: string,
-  purple: string,
-  yellow: string
-];
+import { BgCollection } from "./@types/types";
+import { getData } from "./redux/data/async";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { items, currentTimeFrame, timePeriod } = useSelector(
+  const { items, currentTimeFrame, timePeriod, isLoad } = useSelector(
     (state: RootState) => state.data
   );
   useEffect(() => {
@@ -43,6 +36,7 @@ const App: React.FC = () => {
     purple,
     yellow,
   ];
+  const load = useSelector((state: RootState) => state.data.isLoad);
 
   return (
     <div className="App">
@@ -70,6 +64,7 @@ const App: React.FC = () => {
             ))}
           </ul>
         </nav>
+
         <section className="statistic">
           {items.map((e, i) => (
             <StatisticsCard
