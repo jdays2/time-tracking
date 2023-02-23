@@ -8,8 +8,8 @@ import pink from "./assets/img/pink.svg";
 import green from "./assets/img/002-gamepad.svg";
 import purple from "./assets/img/purple.svg";
 import yellow from "./assets/img/yeallow.svg";
-import { useEffect } from "react";
-import { getData } from "./redux/data/slice";
+import { useEffect, useState } from "react";
+import { getData, setCurrentTF } from "./redux/data/slice";
 import { RootState, useAppDispatch } from "./redux/store";
 import { useSelector } from "react-redux";
 
@@ -24,10 +24,16 @@ type BgCollection = [
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { items } = useSelector((state: RootState) => state.data);
+  const { items, currentTimeFrame, timePeriod } = useSelector(
+    (state: RootState) => state.data
+  );
   useEffect(() => {
     dispatch(getData());
   }, []);
+
+  const setCurrentTime = (i: number) => {
+    dispatch(setCurrentTF(i + 1));
+  };
 
   const backgroundsCollection: BgCollection = [
     orange,
@@ -50,9 +56,18 @@ const App: React.FC = () => {
             </div>
           </div>
           <ul className="navigation_sort-by">
-            <li className="sort-by__item">Daily</li>
-            <li className="sort-by__item sort-by__item__active">Weekly</li>
-            <li className="sort-by__item">Monthly</li>
+            {timePeriod.map((e, i) => (
+              <li
+                className={
+                  currentTimeFrame === i + 1
+                    ? `sort-by__item sort-by__item__active`
+                    : `sort-by__item`
+                }
+                onClick={() => setCurrentTime(i)}
+              >
+                {e}
+              </li>
+            ))}
           </ul>
         </nav>
         <section className="statistic">
@@ -60,6 +75,7 @@ const App: React.FC = () => {
             <StatisticsCard
               {...e}
               key={i}
+              currentTimeFrame={currentTimeFrame}
               background={backgroundsCollection[i]}
             />
           ))}

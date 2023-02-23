@@ -21,25 +21,32 @@ interface FetchedData {
 type dataState = {
   items: FetchedData[];
   selectedTimeFrame: "daily" | "weekly" | "monthly";
+  currentTimeFrame: number;
+  timePeriod: string[];
 };
 
 const initialState: dataState = {
   items: [],
   selectedTimeFrame: "daily",
+  currentTimeFrame: 1,
+  timePeriod: ["Daily", " Weekly", "Monthly"],
 };
 
 export const getData = createAsyncThunk("data/fetchData", async () => {
   const { data } = await axios.get<FetchedData[]>(
     "https://63f6a61a9daf59d1ad8c47be.mockapi.io/data"
   );
-  console.log(data);
   return data;
 });
 
 const dataSlice = createSlice({
   name: "data",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentTF(state, action: PayloadAction<number>) {
+      state.currentTimeFrame = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(
       getData.fulfilled,
@@ -50,5 +57,5 @@ const dataSlice = createSlice({
   },
 });
 
-export const {} = dataSlice.actions;
+export const { setCurrentTF } = dataSlice.actions;
 export default dataSlice.reducer;
