@@ -8,26 +8,36 @@ import pink from "./assets/img/pink.svg";
 import green from "./assets/img/002-gamepad.svg";
 import purple from "./assets/img/purple.svg";
 import yellow from "./assets/img/yeallow.svg";
-
-type BgCollection = [
-  orange: string,
-  blue: string,
-  pink: string,
-  green: string,
-  purple: string,
-  yellow: string
-];
-
-const backgroundsCollection: BgCollection = [
-  orange,
-  blue,
-  pink,
-  green,
-  purple,
-  yellow,
-];
+import { useEffect } from "react";
+import { setCurrentTF } from "./redux/data/slice";
+import { RootState, useAppDispatch } from "./redux/store";
+import { useSelector } from "react-redux";
+import { BgCollection } from "./@types/types";
+import { getData } from "./redux/data/async";
 
 const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { items, currentTimeFrame, timePeriod, isLoad } = useSelector(
+    (state: RootState) => state.data
+  );
+  useEffect(() => {
+    dispatch(getData());
+  }, []);
+
+  const setCurrentTime = (i: number) => {
+    dispatch(setCurrentTF(i + 1));
+  };
+
+  const backgroundsCollection: BgCollection = [
+    orange,
+    blue,
+    pink,
+    green,
+    purple,
+    yellow,
+  ];
+  const load = useSelector((state: RootState) => state.data.isLoad);
+
   return (
     <div className="App">
       <div className="container">
@@ -40,14 +50,29 @@ const App: React.FC = () => {
             </div>
           </div>
           <ul className="navigation_sort-by">
-            <li className="sort-by__item">Daily</li>
-            <li className="sort-by__item sort-by__item__active">Weekly</li>
-            <li className="sort-by__item">Monthly</li>
+            {timePeriod.map((e, i) => (
+              <li
+                className={
+                  currentTimeFrame === i + 1
+                    ? `sort-by__item sort-by__item__active`
+                    : `sort-by__item`
+                }
+                onClick={() => setCurrentTime(i)}
+              >
+                {e}
+              </li>
+            ))}
           </ul>
         </nav>
+
         <section className="statistic">
-          {backgroundsCollection.map((e, i) => (
-            <StatisticsCard img={e} key={i} />
+          {items.map((e, i) => (
+            <StatisticsCard
+              {...e}
+              key={i}
+              currentTimeFrame={currentTimeFrame}
+              background={backgroundsCollection[i]}
+            />
           ))}
         </section>
       </div>
