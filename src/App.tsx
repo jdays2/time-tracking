@@ -22,23 +22,21 @@ type BgCollection = [
   yellow: string
 ];
 
-const backgroundsCollection: BgCollection = [
-  orange,
-  blue,
-  pink,
-  green,
-  purple,
-  yellow,
-];
-
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
-
   const { items } = useSelector((state: RootState) => state.data);
-
   useEffect(() => {
     dispatch(getData());
   }, []);
+
+  const backgroundsCollection: BgCollection = [
+    orange,
+    blue,
+    pink,
+    green,
+    purple,
+    yellow,
+  ];
 
   return (
     <div className="App">
@@ -59,7 +57,11 @@ const App: React.FC = () => {
         </nav>
         <section className="statistic">
           {items.map((e, i) => (
-            <StatisticsCard {...e} key={i} />
+            <StatisticsCard
+              {...e}
+              key={i}
+              background={backgroundsCollection[i]}
+            />
           ))}
         </section>
       </div>

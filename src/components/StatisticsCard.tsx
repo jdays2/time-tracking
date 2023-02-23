@@ -5,15 +5,17 @@ import { fetchedTimeframes } from "../redux/data/slice";
 type StatisticsCardProps = {
   title: string;
   timeframes: fetchedTimeframes;
+  background: string;
 };
 
 const StatisticsCard: React.FC<StatisticsCardProps> = ({
   timeframes,
   title,
+  background,
 }) => {
   return (
     <div className="statistic__card">
-      <img className="card__background" />
+      <img className="card__background" src={background} />
       <div className="card__content">
         <div className="content__header">
           <span className="header__title">{title}</span>
