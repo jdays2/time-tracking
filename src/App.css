@@ -160,19 +160,19 @@ body {
 }
 
 .content__header {
-  width: 147px;
+  width: 195px;
   margin-top: 29px;
   margin-left: 30px;
   margin-bottom: 24px;
 
   display: flex;
+  justify-content: space-between;
 }
 
 .header__title {
   font-weight: 500;
   font-size: 18px;
   line-height: 21px;
-  margin-right: 131px;
 }
 
 .header__dots {

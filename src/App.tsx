@@ -8,6 +8,10 @@ import pink from "./assets/img/pink.svg";
 import green from "./assets/img/002-gamepad.svg";
 import purple from "./assets/img/purple.svg";
 import yellow from "./assets/img/yeallow.svg";
+import { useEffect } from "react";
+import { getData } from "./redux/data/slice";
+import { RootState, useAppDispatch } from "./redux/store";
+import { useSelector } from "react-redux";
 
 type BgCollection = [
   orange: string,
@@ -28,6 +32,14 @@ const backgroundsCollection: BgCollection = [
 ];
 
 const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const { items } = useSelector((state: RootState) => state.data);
+
+  useEffect(() => {
+    dispatch(getData());
+  }, []);
+
   return (
     <div className="App">
       <div className="container">
@@ -46,8 +58,8 @@ const App: React.FC = () => {
           </ul>
         </nav>
         <section className="statistic">
-          {backgroundsCollection.map((e, i) => (
-            <StatisticsCard img={e} key={i} />
+          {items.map((e, i) => (
+            <StatisticsCard {...e} key={i} />
           ))}
         </section>
       </div>
