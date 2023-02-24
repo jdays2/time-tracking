@@ -5,7 +5,6 @@ import { dataState, FetchedData } from "./types";
 const initialState: dataState = {
   items: [],
   isLoad: false,
-  selectedTimeFrame: "daily",
   currentTimeFrame: 1,
   timePeriod: ["Daily", " Weekly", "Monthly"],
 };

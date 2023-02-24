@@ -17,7 +17,7 @@ import { getData } from "./redux/data/async";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { items, currentTimeFrame, timePeriod, isLoad } = useSelector(
+  const { items, currentTimeFrame, timePeriod } = useSelector(
     (state: RootState) => state.data
   );
   useEffect(() => {
@@ -36,7 +36,6 @@ const App: React.FC = () => {
     purple,
     yellow,
   ];
-  const load = useSelector((state: RootState) => state.data.isLoad);
 
   return (
     <div className="App">
