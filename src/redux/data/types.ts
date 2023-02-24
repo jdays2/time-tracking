@@ -16,7 +16,6 @@ export interface FetchedData {
 
 export type dataState = {
   items: FetchedData[];
-  selectedTimeFrame: "daily" | "weekly" | "monthly";
   currentTimeFrame: number;
   timePeriod: string[];
   isLoad: boolean;
